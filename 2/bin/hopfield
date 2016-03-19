@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+require 'opencv'
+require 'matrix'
+include OpenCV
+
+Dir['../lib/*.rb'].each {|f| require_relative(f)}
+
+letter = ARGV[0]
+letter_o = Image.new('../resources/o.png')
+letter_e = Image.new('../resources/e.png')
+letter_sh = Image.new('../resources/sh.png')
+
+patterns = {}
+
+patterns["o"] = Pattern.new(letter_o)
+patterns["e"] = Pattern.new(letter_e)
+patterns["sh"] = Pattern.new(letter_sh)
+
+indentifyer = Identifyer.new patterns
+indentifyer.test_indification(Image.new("../resources/#{letter}.png"))
